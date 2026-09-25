@@ -1,0 +1,5 @@
+model,eval_kind,vocab,valid_tokens,raw_coverage,coverage,analogy_acc,wordsim_spearman,train_sec
+word-level,word (restricted),50061,499763,0.953,0.953,0.1281,0.3247,32.2
+bpe-2k,subword mean,50123,869819,0.0121,1.0,0.1911,0.1682,73.6
+bpe-8k,subword mean,50123,658749,0.0288,1.0,0.1425,0.2493,58.3
+bpe-32k,subword mean,50123,557986,0.0895,1.0,0.1316,0.2989,56.9

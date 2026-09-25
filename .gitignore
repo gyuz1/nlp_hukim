@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# Corpora and trained models (regenerate with prepare_corpus.py / the notebook)
+data/
+artifacts/
+
+# Course materials
+slides/
+
+# Report drafts (report.pdf is the submission)
+report.docx
+report_korean.pdf
+~$*
+
+# Editor and scratch
+.vscode/
+tmp/

@@ -1,0 +1,8 @@
+# HW1 - Tokenization and Word Vectors
+numpy>=1.24
+matplotlib>=3.7
+gensim>=4.3          # Word2Vec; ships questions-words.txt and wordsim353.tsv
+tokenizers>=0.15     # reference BPE for Part 1-4 and 1-6
+notebook>=7.0
+# only needed to download the corpus
+datasets>=2.14

@@ -1,0 +1,3 @@
+impl,merges,vocab,train_sec
+mine (pure python),1000,1612,73.92
+tokenizers (rust),-,1612,0.31

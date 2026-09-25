@@ -1,0 +1,5 @@
+model,eval_kind,vocab,coverage,analogy_acc,wordsim_spearman
+word-level,word (restricted),50061,0.953,0.1281,0.3247
+bpe-2k,subword mean,50123,1.0,0.1911,0.1682
+bpe-8k,subword mean,50123,1.0,0.1425,0.2493
+bpe-32k,subword mean,50123,1.0,0.1316,0.2989

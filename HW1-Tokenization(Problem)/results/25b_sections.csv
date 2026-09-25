@@ -1,0 +1,5 @@
+model,semantic_acc,syntactic_acc,semantic_n,syntactic_n,scored
+word-level,0.1811,0.0966,6014,10135,16149
+bpe-2k,0.0053,0.3455,8869,10675,19544
+bpe-8k,0.0365,0.2305,8869,10675,19544
+bpe-32k,0.1235,0.1384,8869,10675,19544
