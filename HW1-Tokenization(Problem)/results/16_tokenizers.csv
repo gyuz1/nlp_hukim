@@ -1,5 +1,5 @@
 tokenizer,vocab,valid_tokens,train_sec
 bpe-2k,2000,869819,2.2
 bpe-8k,8000,658749,3.1
-bpe-32k,32000,557986,3.3
+bpe-32k,32000,557986,3.7
 word-level,259319,499763,0.0

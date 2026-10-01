@@ -1,4 +1,4 @@
 model,window,analogy_acc,wordsim_spearman,train_sec
-word-level,2,0.0883,0.2438,25.1
-word-level,5,0.1203,0.3323,33.5
-word-level,10,0.1522,0.387,38.6
+word-level,2,0.0832,0.2503,27.3
+word-level,5,0.1276,0.3255,34.2
+word-level,10,0.152,0.3876,40.1

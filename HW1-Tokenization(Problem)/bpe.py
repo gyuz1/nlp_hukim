@@ -30,6 +30,7 @@ Run:
 
 from __future__ import annotations
 
+import heapq
 from collections import Counter, defaultdict
 
 UNK = "<unk>"
@@ -90,23 +91,41 @@ def train_bpe(word_freqs, num_merges):
     splits = {word: list(word) for word in word_freqs}
     merges = []
 
-    for _ in range(num_merges):
-        pair_freqs = Counter()
-        for word, freq in word_freqs.items():
-            symbols = splits[word]
-            for i in range(len(symbols) - 1):
-                pair_freqs[(symbols[i], symbols[i + 1])] += freq
+    # Count every pair once, and remember which words contain it.
+    pair_freqs = Counter()
+    pair_to_words = defaultdict(set)
+    for word, freq in word_freqs.items():
+        symbols = splits[word]
+        for i in range(len(symbols) - 1):
+            pair = (symbols[i], symbols[i + 1])
+            pair_freqs[pair] += freq
+            pair_to_words[pair].add(word)
 
-        if not pair_freqs:
+    # Max-heap on frequency; (-freq, pair) also breaks ties alphabetically.
+    # Entries go stale when a frequency changes and are skipped when popped.
+    heap = [(-f, p) for p, f in pair_freqs.items()]
+    heapq.heapify(heap)
+
+    while len(merges) < num_merges:
+        while heap and pair_freqs.get(heap[0][1], 0) != -heap[0][0]:
+            heapq.heappop(heap)
+        if not heap or -heap[0][0] < 2:
             break
-        best = min(pair_freqs, key=lambda p: (-pair_freqs[p], p))
-        if pair_freqs[best] < 2:
-            break
-        
+        best = heap[0][1]
         merges.append(best)
 
+        # Update only the words that contain the merged pair.
         a, b = best
-        for word, symbols in splits.items():
+        changed = set()
+        for word in list(pair_to_words[best]):
+            symbols = splits[word]
+            freq = word_freqs[word]
+            for i in range(len(symbols) - 1):
+                pair = (symbols[i], symbols[i + 1])
+                pair_freqs[pair] -= freq
+                pair_to_words[pair].discard(word)
+                changed.add(pair)
+
             new = []
             i = 0
             while i < len(symbols):
@@ -117,6 +136,19 @@ def train_bpe(word_freqs, num_merges):
                     new.append(symbols[i])
                     i += 1
             splits[word] = new
+
+            for i in range(len(new) - 1):
+                pair = (new[i], new[i + 1])
+                pair_freqs[pair] += freq
+                pair_to_words[pair].add(word)
+                changed.add(pair)
+
+        for pair in changed:
+            if pair_freqs[pair] > 0:
+                heapq.heappush(heap, (-pair_freqs[pair], pair))
+            else:
+                del pair_freqs[pair]
+                pair_to_words.pop(pair, None)
 
     return merges
 
