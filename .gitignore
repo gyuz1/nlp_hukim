@@ -18,3 +18,8 @@ report_korean.pdf
 # Editor and scratch
 .vscode/
 tmp/
+
+# Local copies (Korean draft, submission folder and archive)
+report_korean.docx
+HW1_*_*/
+HW1_*_*.zip
